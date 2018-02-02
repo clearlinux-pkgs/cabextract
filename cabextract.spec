@@ -4,7 +4,7 @@
 #
 Name     : cabextract
 Version  : 1.6
-Release  : 2
+Release  : 3
 URL      : http://www.cabextract.org.uk/cabextract-1.6.tar.gz
 Source0  : http://www.cabextract.org.uk/cabextract-1.6.tar.gz
 Summary  : A program to extract Microsoft Cabinet files
