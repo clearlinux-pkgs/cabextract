@@ -1,3 +1,43 @@
+2018-07-17  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* amibuild.sh: support using setlocale()/iconv() in the OS4 version.
+
+	* amibuild.sh: build the 68K version with -noixemul so the resulting
+	executable doesn't need ixemul.library, libnix is used instead.
+	Because libnix has no umask(), add a HAVE_UMASK feature test.
+
+	* src/cabextract.c: add a new feature flag, LATIN1_FILENAMES,
+	which should be defined if the host environment expects ISO-8859-1
+	filenames rather than UTF-8. This adds in a step to translate
+	even UTF-8 filenames to ISO-8859-1.  It's only enabled for the
+	Amiga build so far.
+
+2018-03-07  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* configure.ac, src/cabextract.c: add support for choosing the
+	character encoding of non-UTF8 filenames, using the iconv library.
+	This is based on a patch originally developed by Kevin Tardif.
+
+	* src/cabextract.c: try setting various UTF8 locales for LC_CTYPE,
+	in order to get tolower() / towlower() to lowercase non-ASCII
+	characters.  Again, thanks to Kevin Tardif for discussing this
+	and supplying a proposed patch.
+
+2016-04-16  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* configure.ac: change my email address to kyzer@cabextract.org.uk
+
+2015-05-10  Stuart Caie <kyzer@4u.net>
+
+	* wince_rename, wince_info: allow the possibility that strings have
+	more than one null byte. Thanks to Stefan Riegler for the suggestion.
+
+2015-05-10  Stuart Caie <kyzer@4u.net>
+
+	* Makefile.am: Add subdir-objects option as suggested by autoreconf.
+
+	* configure.ac: Add AM_PROG_AR as suggested by autoreconf.
+
 2015-02-25  Stuart Caie <kyzer@4u.net>
 
 	* create_output_name(): Simplify code; do path checking only after
