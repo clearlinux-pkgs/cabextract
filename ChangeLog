@@ -1,3 +1,74 @@
+2018-11-03 Stuart Caie <kyzer@cabextract.org.uk>
+
+	* test: use the autotools test system instead of a custom makefile.
+	You can now use 'make check' to test cabextract, and the test files
+	are now distributed with cabextract.
+
+2018-10-30  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* configure.ac: remove obsolescent C library tests. AC_HEADER_STDC is
+	removed, and so are most checks for standard C headers. cabextract now
+	makes these assumptions:
+	- <ctype.h> <dirent.h> <errno.h> <limits.h> <locale.h> <stdarg.h>
+	  <stdlib.h> <string.h> <sys/stat.h> <sys/types.h> <time.h> exist
+	- <time.h> is protected from double-inclusion (AC_HEADER_TIME obsolete)
+	- if you have iconv(), towlower(), utime(), utimes(), you also
+	  have their header files
+	- BSD has memcpy(), memmove(), strrchr() in <string.h> and has
+	  strcasecmp() in <strings.h>
+
+2018-10-26  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* configure.ac, Makefile.am: use pkg-config's PKG_CHECK_MODULES
+	when looking for an external libmspack. You still need to supply
+	--with-external-libmspack to use an external libmspack. If you
+	don't like or use pkg-config, you can set the environment variables
+	libmspack_CFLAGS and libmspack_LIBS before running configure.
+
+2018-10-26  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* autogen.sh, distcheck.sh: I've introduced new build scripts.
+	Use cleanup.sh to remove all generated files, autogen.sh to
+	generate the configure script, rebuild.sh to (re)build and test
+	cabextract, and finally use distcheck.sh to both build and
+	distcheck cabextract, both with the --with-external-libmspack
+	configure option and without.
+
+2018-10-22  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* amibuild.sh: include cabinfo in the Amiga distribution. Thanks to
+	Stefan Haubenthal for the suggestion.
+
+2018-10-16  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* src/cabinfo.c: thanks to Micah Snyder for sending some very corrupt
+	files, where cabinet blocks can be found absolutely anywhere, not in
+	a continguous sequence after the file entries, I found cabinfo unfit
+	for purpose. I've updated it with a new output format, where the
+	blocks for a folder appear immediately after each folder, rather than
+	all at the end.
+
+2018-10-16  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* src/cabextract.c: use libmspack's new MSCABD_PARAM_SALVAGE mode
+	for cabextract -f, to allow extracting even more data from broken
+	cabinet files.
+
+2018-07-31  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* configure.ac: drop AC_FUNC_MKTIME. Looking into it, even C89 has
+	a mktime() function, the configure test is mostly checking if it
+	is POSIX-conformant or not, and substitutes mktime.c if not. But
+	even the replacement has no TZ handling, so it seems OK to me to
+	accept the system mktime() in any case. The fnmatch() and getopt()
+	substitutions remain because they enable GNU extensions that
+	cabextract uses (FNM_CASEFOLD and getopt_long() respectively).
+	Thanks to Stefan Haubenthal for bringing up the issue.
+
+2018-07-28  Stuart Caie <kyzer@cabextract.org.uk>
+
+	* src/cabinfo.c: cabinfo now supports examining more than one file
+
 2018-07-17  Stuart Caie <kyzer@cabextract.org.uk>
 
 	* amibuild.sh: support using setlocale()/iconv() in the OS4 version.
