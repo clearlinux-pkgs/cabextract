@@ -4,7 +4,7 @@
 #
 Name     : cabextract
 Version  : 1.9.1
-Release  : 7
+Release  : 8
 URL      : http://www.cabextract.org.uk/cabextract-1.9.1.tar.gz
 Source0  : http://www.cabextract.org.uk/cabextract-1.9.1.tar.gz
 Summary  : A program to extract Microsoft cabinet (.CAB) files
