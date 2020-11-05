@@ -4,10 +4,10 @@
 #
 Name     : cabextract
 Version  : 1.9.1
-Release  : 8
+Release  : 9
 URL      : http://www.cabextract.org.uk/cabextract-1.9.1.tar.gz
 Source0  : http://www.cabextract.org.uk/cabextract-1.9.1.tar.gz
-Summary  : A program to extract Microsoft cabinet (.CAB) files
+Summary  : A program to extract Microsoft Cabinet files
 Group    : Development/Tools
 License  : GPL-3.0
 Requires: cabextract-bin = %{version}-%{release}
@@ -47,28 +47,34 @@ man components for the cabextract package.
 
 %prep
 %setup -q -n cabextract-1.9.1
+cd %{_builddir}/cabextract-1.9.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1551719568
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604537916
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1551719568
+export SOURCE_DATE_EPOCH=1604537916
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cabextract
-cp COPYING %{buildroot}/usr/share/package-licenses/cabextract/COPYING
+cp %{_builddir}/cabextract-1.9.1/COPYING %{buildroot}/usr/share/package-licenses/cabextract/8624bcdae55baeef00cd11d5dfcfa60f68710a02
 %make_install
 
 %files
@@ -80,7 +86,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/cabextract/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/cabextract/COPYING
+/usr/share/package-licenses/cabextract/8624bcdae55baeef00cd11d5dfcfa60f68710a02
 
 %files man
 %defattr(0644,root,root,0755)
