@@ -1,2 +1,4 @@
+Configure miss: 32-bit host C ABI
 Configure miss: _mkdir
+Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: whether mkdir takes one argument
